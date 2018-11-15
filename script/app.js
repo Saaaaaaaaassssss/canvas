@@ -1,28 +1,29 @@
 const $canvas = document.querySelector('.js-canvas')
 const ctx = $canvas.getContext('2d')
 
-let width = $canvas.width
-let height = $canvas.height
+$canvas.width = window.innerWidth
+$canvas.height = window.innerHeight
 
 class Ball {
     constructor() {
-        this.radius = Math.random() * 30
-        this.x = Math.random() * width - this.radius
-        this.y = Math.random() * height - this.radius
+        this.radius = Math.random() * 30 + 8
+        this.x = Math.random() * $canvas.width - this.radius
+        this.y = Math.random() * $canvas.height - this.radius
         this.rotation = Math.random() * 2 * Math.PI
     }
 }
 
-const test = new Ball()
+for(let i = -1000; i < 1000; i += 20) {  
+    const ball = new Ball()
+    
+    ctx.beginPath()
+    ctx.fillStyle = 'purple'
+    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2)
+    ctx.fill()
+}
 
-test.y > height - test.radius ? test.y = height - test.radius : test.y = Math.random() * height - test.radius
-test.y < test.radius ? test.y = test.radius : test.y = Math.random() * height - test.radius
-test.x > width - test.radius ? test.x = width - test.radius : test.x = Math.random() * width - test.radius
-test.x < test.radius ? test.x = test.radius : test.x = Math.random() * width - test.radius
-
-ctx.beginPath()
-ctx.fillStyle = 'purple'
-ctx.arc(test.x, test.y, test.radius, 0, Math.PI * 2)
-ctx.fill()
-
-console.log(test)
+//RESIZE
+window.addEventListener('resize', () => {
+    $canvas.width = window.innerWidth
+    $canvas.height = window.innerHeight
+})
