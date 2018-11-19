@@ -16,7 +16,7 @@ class Ball {
     }
 
     resize() {
-        window.addEventListener('resize', () => {
+        window.addEventListener('resize', (event) => {
             $canvas.width = window.innerWidth
             $canvas.height = window.innerHeight
         })
@@ -48,16 +48,18 @@ class Ball {
     }
 
     followingBall() {
-        const loopingBalls = () =>
-        {
+        const loopingBalls = () => {
             window.requestAnimationFrame(loopingBalls)
         
             this.x += (this.mouseX - this.x) * 0.1
             this.y += (this.mouseY - this.y) * 0.1
         
-            ctx.globalAlpha = 0.2
-            ctx.fillStyle = '#FFF'
-        
+            ctx.globalCompositeOperation = 'lighter'
+            ctx.beginPath()
+            ctx.fillStyle = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
+            ctx.arc(this.mouseX, this.mouseY,  24, 0, Math.PI * 2)
+            ctx.fill()
+            
             ctx.beginPath()
             ctx.arc(this.mouseX, this.mouseY, 20, 0, Math.PI * 2)
             ctx.globalAlpha = 0.8
@@ -73,13 +75,6 @@ const final = new Ball()
 final.ballsCreation()
 final.updateMouse()
 final.followingBall()
-
-const loop = () => {
-    window.requestAnimationFrame(loop)
-
-    final.resize()
-}
-loop()
-
+final.resize()
 
 
