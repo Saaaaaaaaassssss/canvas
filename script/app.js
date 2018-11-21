@@ -1,80 +1,47 @@
-const $canvas = document.querySelector('.js-canvas')
-const ctx = $canvas.getContext('2d')
+class Glitch {
+    constructor() {
+        this.$canvas = document.querySelector('.js-canvas')
+        this.ctx = this.$canvas.getContext('2d')
 
-$canvas.width = window.innerWidth
-$canvas.height = window.innerHeight
+        this.$canvas.width = window.innerWidth
+        this.$canvas.height = window.innerHeight
 
-class Ball {
-    constructor() {
-        this.radius = Math.random() * 30 + 8
-        this.x = Math.random() * $canvas.width - this.radius
-        this.y = Math.random() * $canvas.height - this.radius
-        this.rotation = Math.random() * 2 * Math.PI
-        this.mouseX = 0
-        this.mouseY = 0
-        this.dist = 2 * this.radius
+        this.image = new Image()
+        this.image.width = this.$canvas.width        
+        this.image.height = this.$canvas.height      
+        this.verticalSlices = Math.round(this.image.height / 30)
+        this.maxVertical = 40
+
+        console.log(this.$canvas.height)
     }
 
-    resize() {
-        window.addEventListener('resize', (event) => {
-            $canvas.width = window.innerWidth
-            $canvas.height = window.innerHeight
-        })
+    random(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;        
     }
 
-    ballsCreation() {
-        for(let i = 0; i < 120; i ++) {  
-            const balls = new Ball()
-
-            ctx.globalCompositeOperation = 'lighter'
-            ctx.beginPath()
-            ctx.fillStyle = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
-            ctx.arc(balls.x, balls.y, balls.radius + 8, 0, Math.PI * 2)
-            ctx.fill()
-        
-            ctx.globalAlpha = 0.8
-            ctx.beginPath()
-            ctx.fillStyle = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
-            ctx.arc(balls.x, balls.y, balls.radius, 0, Math.PI * 2)
-            ctx.fill()
+    draw() {
+        this.image.src = './image/lionBW.png'
+        this.image.onload = ()  => {
+            this.$this = this
         }
-    }
 
-    updateMouse() {
-        document.addEventListener('mousemove', (event) => {
-            this.mouseX = event.clientX 
-            this.mouseY = event.clientY 
-        })
-    }
+        for (let i = 0; i < this.verticalSlices; i++) {
+            this.maxVertical = this.random(- Math.abs(this.maxVertical), this.maxVertical)
 
-    followingBall() {
-        const loopingBalls = () => {
-            window.requestAnimationFrame(loopingBalls)
-        
-            this.x += (this.mouseX - this.x) * 0.1
-            this.y += (this.mouseY - this.y) * 0.1
-        
-            ctx.globalCompositeOperation = 'lighter'
-            ctx.beginPath()
-            ctx.fillStyle = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
-            ctx.arc(this.mouseX, this.mouseY,  24, 0, Math.PI * 2)
-            ctx.fill()
-            
-            ctx.beginPath()
-            ctx.arc(this.mouseX, this.mouseY, 20, 0, Math.PI * 2)
-            ctx.globalAlpha = 0.8
-            ctx.fillStyle = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
-            ctx.fill()
+            this.ctx.drawImage(this.image, 0, i * this.verticalSlices, this.image.width, i * this.verticalSlices + this.verticalSlices ,
+                 this.maxVertical, i * this.verticalSlices, this.image.width, i * this.verticalSlices + this.verticalSlices)
+
         }
-        loopingBalls()
+
+        setTimeout(() => {
+            window.requestAnimationFrame(() => {
+                this.draw(this.image)
+            })
+        }, 100)
     } 
 }
-
-const final = new Ball()
-
-final.ballsCreation()
-final.updateMouse()
-final.followingBall()
-final.resize()
+const glitch = new Glitch()
+glitch.random()
+glitch.draw()
 
 
