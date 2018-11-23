@@ -1,8 +1,3 @@
-body { 
-    background: #000;
-  }
-
-canvas { 
-   margin: 0 auto;
-   width: 60%;
+body, canvas { 
+    margin: 0 auto;
 }
