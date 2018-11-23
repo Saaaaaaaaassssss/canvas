@@ -10,13 +10,27 @@ export default class Ball {
         this.angle = Math.random() * Math.PI * 2
 
         this.move = {
-            moveX: Math.cos(this.angle),
-            moveY: Math.sin(this.angle)
+            moveX: Math.cos(this.angle) + Math.random(),
+            moveY: Math.sin(this.angle) + Math.random()
         }
+
+        this.ballOut = false
+
         this.draw = this.draw.bind(this)
     }
 
     draw() {
+        this.x += this.move.moveX
+        this.y += this.move.moveY
+
+        if (
+            this.x > this.screen.width + this.radius ||
+            this.y > this.screen.height + this.radius ||
+            this.x < - this.radius ||
+            this.y < - this.radius
+        ) {
+            this.ballOut = true
+        }
 
         this.ctx.save()
         this.ctx.beginPath()
