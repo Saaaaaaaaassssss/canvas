@@ -47,4 +47,3 @@ export default class Ball {
         this.ctx.restore()
     }
 }
-

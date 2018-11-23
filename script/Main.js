@@ -92,6 +92,3 @@ export default class Main {
         // delete balls
     }
 }
-
-
-
