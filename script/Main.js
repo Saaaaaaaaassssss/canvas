@@ -4,6 +4,7 @@ export default class Main {
     constructor() {
         this.$canvas = document.querySelector('.js-canvas')
         this.ctx = this.$canvas.getContext('2d')
+        this.ctx.globalCompositionOperation = 'lighter'        
         this.dimensions = {
             width: window.innerWidth,
             height: window.innerHeight
@@ -49,12 +50,12 @@ export default class Main {
                 this.dimensions
             )
             this.balls.push(ball)
-            console.log(this.balls)
         }
+
         this.updateBalls()  
-        
         this.balls = this.balls.filter(_ball => !_ball.ballOut)
-        console.log(this.balls.length)
+
+        this.easterEgg()
     }
 
     cursorState() {
@@ -86,9 +87,28 @@ export default class Main {
         this.ctx.fillStyle = '#111111'
         this.ctx.fillRect(0, 0, this.$canvas.width, this.$canvas.height)
 
+        this.easterEgg()
+
         for (let i = 0; i < this.balls.length; i++) {
             this.balls[i].draw()
         }
-        // delete balls
+    }
+
+    easterEgg() {
+        if (this.balls.length > 300) {
+            for (let i = 0; i < 1; i++) {
+                const artyom = new Artyom()
+                
+                function startArtyom() {
+                    startArtyom.initialize({
+                        lang: 'fr-FR',
+                        continuous: false,
+                        debug: true,
+                        listen: true
+                    })
+                }
+                artyom.say("Non mais ça va pas la tête ? Arretez d'en générer ! Ça va cracher !")
+            }
+        }
     }
 }

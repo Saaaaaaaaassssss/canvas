@@ -33,16 +33,23 @@ export default class Ball {
         }
 
         this.ctx.save()
+        this.ctx.moveTo(this.x, this.y)
+        this.ctx.lineTo(this.x, this.y)
+        this.ctx.strokeStyle = this.color
+        this.ctx.stroke()
+        this.ctx.restore()
+
+        this.ctx.save()
         this.ctx.beginPath()
-        this.ctx.fillStyle = this.color  
         this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
+        this.ctx.fillStyle = this.color          
         this.ctx.fill()
         this.ctx.restore()
 
         this.ctx.save()
         this.ctx.beginPath()
-        this.ctx.fillStyle = this.color
         this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
+        this.ctx.fillStyle = this.color        
         this.ctx.fill()
         this.ctx.restore()
     }
