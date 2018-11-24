@@ -33,8 +33,8 @@ export default class Ball {
         }
 
         this.ctx.save()
-        this.ctx.moveTo(this.x, this.y)
-        this.ctx.lineTo(this.x, this.y)
+        this.ctx.moveTo(this.squarePositionX, this.squarePositionY)
+        this.ctx.lineTo(this.squarePositionX, this.squarePositionY)
         this.ctx.strokeStyle = this.color
         this.ctx.stroke()
         this.ctx.restore()

@@ -26,14 +26,17 @@ export default class Main {
 
         const loop = () => {
             window.requestAnimationFrame(loop)
+
+            this.resize()
             this.mousePosition()
             this.createSquare()
-            this.mouseBalls()
             this.createBalls()            
         }
         loop()
     }
 
+
+    //RESIZING CANVAS
     resize() {
         this.dimensions.width = window.innerWidth
         this.dimensions.height = window.innerHeight
@@ -42,6 +45,8 @@ export default class Main {
         this.$canvas.height = this.dimensions.height
     }
 
+
+    //UPDATING MOUSE POSITION
     mousePosition() {
         window.addEventListener('mousemove', (_event) => {
             this.cursor.x = _event.clientX
@@ -49,6 +54,8 @@ export default class Main {
         })
     }
 
+
+    //CURSOR STATUS
     cursorState() {
         window.addEventListener('mousedown', () => {
             this.cursor.down = true
@@ -59,6 +66,8 @@ export default class Main {
         })
     }
 
+
+    //SQUARE'S CREATION
     createSquare() {
         this.cursorState()
 
@@ -69,17 +78,19 @@ export default class Main {
                 this.cursor.x,
                 this.cursor.y,
                 this.ctx,
-                this.dimensions
+                this.dimensions,
             )
             this.squares.push(square)
-            console.log(square)
         }
 
         this.updateSquare()
-        this.squares = this.squares.filter(_square => !_square.squareOut)
+        this.squares = this.squares.filter(_square => !_square.squareOut)        
     }
 
+
+    //DRAWING SQUARES
     updateSquare() {
+        this.ctx.globalCompositionOperation = 'lighter'
         this.ctx.fillStyle = '#111111'
         this.ctx.fillRect(0, 0, this.$canvas.width, this.$canvas.height)
 
@@ -88,6 +99,8 @@ export default class Main {
         }
     }
 
+
+    //BALL'S CREATION
     createBalls() {
         for (let i = 0; i < this.ballsNumber - this.balls.length; i++) {
             const ball = new Ball(
@@ -96,27 +109,14 @@ export default class Main {
             )
             this.balls.push(ball)
         }
-
         this.updateBalls()  
         this.balls = this.balls.filter(_ball => !_ball.ballOut)
 
         this.easterEgg()
     }
 
-    mouseBalls() {
-        this.cursorState()
-        this.mousePosition()
 
-        if (this.cursor.down === true) {
-            const ball = new Ball(
-                this.ctx,
-                this.dimensions
-            )
-
-            this.balls.push(ball)
-        }
-    }
-
+    //DRAWING BALLS
     updateBalls() {
         this.ctx.fillStyle = '#111111'
         this.ctx.fillRect(0, 0, this.$canvas.width, this.$canvas.height)
@@ -126,6 +126,8 @@ export default class Main {
         }
     }
 
+
+    //( ͡° ͜ʖ ͡°) 
     easterEgg() {
         if (this.balls.length > 300) {
             for (let i = 0; i < 1; i++) {
