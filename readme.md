@@ -15,7 +15,6 @@ Features :
 - Little easter egg with horrible voice... I advise against trying !
 
 ![Site's screenshot](image/readmeImage.png)
-Format: ![Alt Text]()
 
 It's not necessarily very complex but I tried to do it only in object oriented and do it properly.
 
