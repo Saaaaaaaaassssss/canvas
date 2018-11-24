@@ -129,7 +129,7 @@ export default class Main {
 
     //( ͡° ͜ʖ ͡°) 
     easterEgg() {
-        if (this.balls.length > 300) {
+        if (this.squares.length > 600) {
             for (let i = 0; i < 1; i++) {
                 const artyom = new Artyom()
                 
