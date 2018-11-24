@@ -24,13 +24,15 @@ export default class Main {
         window.addEventListener('resize', () => this.resize())
         this.resize()
 
+        this.pew = document.querySelector('.pew')        
+
         const loop = () => {
             window.requestAnimationFrame(loop)
 
             this.resize()
             this.mousePosition()
             this.createSquare()
-            this.createBalls()            
+            this.createBalls()  
         }
         loop()
     }
@@ -81,10 +83,13 @@ export default class Main {
                 this.dimensions,
             )
             this.squares.push(square)
+            
+            this.pew.play()
         }
 
         this.updateSquare()
-        this.squares = this.squares.filter(_square => !_square.squareOut)        
+        this.squares = this.squares.filter(_square => !_square.squareOut)   
+        console.log(this.squares.length)        
     }
 
 
@@ -126,10 +131,9 @@ export default class Main {
         }
     }
 
-
     //( ͡° ͜ʖ ͡°) 
     easterEgg() {
-        if (this.squares.length > 600) {
+        if (this.squares.length > 130) {
             for (let i = 0; i < 1; i++) {
                 const artyom = new Artyom()
                 
