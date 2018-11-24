@@ -2,6 +2,7 @@ Subject :
 Canvas
 
 My work : 
+- You have to use loocalhost !
 - Just some balls and squares/rectangles ! It was the first time for me with full JSOO (I think it is ?)
 - Try some mousedown !
 
