@@ -16,10 +16,10 @@ export default class Ball {
 
         this.ballOut = false
 
-        this.draw = this.draw.bind(this)
+        this.draw = this.drawBalls.bind(this)
     }
 
-    draw() {
+    drawBalls() {
         this.x += this.move.moveX
         this.y += this.move.moveY
 

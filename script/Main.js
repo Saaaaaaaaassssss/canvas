@@ -1,4 +1,5 @@
 import Ball from './Ball.js'
+import Square from './Square.js'
 
 export default class Main {
     constructor() {
@@ -17,12 +18,17 @@ export default class Main {
         this.balls = []
         this.ballsNumber = 100
 
+        this.squares = []
+        this.squareNumber = 10
+
         window.addEventListener('resize', () => this.resize())
         this.resize()
 
         const loop = () => {
             window.requestAnimationFrame(loop)
-            this.cursorBalls()
+            this.mousePosition()
+            this.createSquare()
+            this.mouseBalls()
             this.createBalls()            
         }
         loop()
@@ -43,6 +49,45 @@ export default class Main {
         })
     }
 
+    cursorState() {
+        window.addEventListener('mousedown', () => {
+            this.cursor.down = true
+        })
+
+        window.addEventListener('mouseup', () => {
+            this.cursor.down = false
+        })
+    }
+
+    createSquare() {
+        this.cursorState()
+
+        if (this.cursor.down == true) {
+            this.mousePosition()
+
+            const square = new Square(
+                this.cursor.x,
+                this.cursor.y,
+                this.ctx,
+                this.dimensions
+            )
+            this.squares.push(square)
+            console.log(square)
+        }
+
+        this.updateSquare()
+        this.squares = this.squares.filter(_square => !_square.squareOut)
+    }
+
+    updateSquare() {
+        this.ctx.fillStyle = '#111111'
+        this.ctx.fillRect(0, 0, this.$canvas.width, this.$canvas.height)
+
+        for (let i = 0; i < this.squares.length; i++) {
+            this.squares[i].drawSquare()
+        }
+    }
+
     createBalls() {
         for (let i = 0; i < this.ballsNumber - this.balls.length; i++) {
             const ball = new Ball(
@@ -58,17 +103,7 @@ export default class Main {
         this.easterEgg()
     }
 
-    cursorState() {
-        window.addEventListener('mousedown', () => {
-            this.cursor.down = true
-        })
-
-        window.addEventListener('mouseup', () => {
-            this.cursor.down = false
-        })
-    }
-
-    cursorBalls() {
+    mouseBalls() {
         this.cursorState()
         this.mousePosition()
 
@@ -80,17 +115,14 @@ export default class Main {
 
             this.balls.push(ball)
         }
-        //this.updateBalls()
     }
 
     updateBalls() {
         this.ctx.fillStyle = '#111111'
         this.ctx.fillRect(0, 0, this.$canvas.width, this.$canvas.height)
 
-        this.easterEgg()
-
         for (let i = 0; i < this.balls.length; i++) {
-            this.balls[i].draw()
+            this.balls[i].drawBalls()
         }
     }
 
