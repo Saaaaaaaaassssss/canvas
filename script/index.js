@@ -1,3 +1,3 @@
 import Main from './Main.js'
 
-new Main()
+const main = new Main()

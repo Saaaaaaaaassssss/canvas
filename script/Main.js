@@ -5,7 +5,6 @@ export default class Main {
     constructor() {
         this.$canvas = document.querySelector('.js-canvas')
         this.ctx = this.$canvas.getContext('2d')
-        this.ctx.globalCompositionOperation = 'lighter'        
         this.dimensions = {
             width: window.innerWidth,
             height: window.innerHeight
@@ -89,7 +88,6 @@ export default class Main {
 
         this.updateSquare()
         this.squares = this.squares.filter(_square => !_square.squareOut)   
-        console.log(this.squares.length)        
     }
 
 
@@ -116,8 +114,6 @@ export default class Main {
         }
         this.updateBalls()  
         this.balls = this.balls.filter(_ball => !_ball.ballOut)
-
-        this.easterEgg()
     }
 
 
@@ -128,25 +124,6 @@ export default class Main {
 
         for (let i = 0; i < this.balls.length; i++) {
             this.balls[i].drawBalls()
-        }
-    }
-
-    //( ͡° ͜ʖ ͡°) 
-    easterEgg() {
-        if (this.squares.length > 130) {
-            for (let i = 0; i < 1; i++) {
-                const artyom = new Artyom()
-                
-                function startArtyom() {
-                    startArtyom.initialize({
-                        lang: 'fr-FR',
-                        continuous: false,
-                        debug: true,
-                        listen: true
-                    })
-                }
-                artyom.say("Non mais ça va pas la tête ? Arretez d'en générer ! Ça va cracher !")
-            }
         }
     }
 }
