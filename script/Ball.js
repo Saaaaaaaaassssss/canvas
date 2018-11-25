@@ -5,7 +5,7 @@ export default class Ball {
 
         this.x = Math.random() * this.screen.width
         this.y = Math.random() * this.screen.height
-        this.radius = Math.random() * 20 + 5
+        this.radius = Math.random() * 20 + 10
         this.color = `hsl(${Math.random() * 360}, 100%, 50%)`
         this.angle = Math.random() * Math.PI * 2
         this.move = {
@@ -20,8 +20,8 @@ export default class Ball {
     drawBalls() {
         this.x += this.move.moveX
         this.y += this.move.moveY
-        this.sizeOnTime = Math.random()
         
+        this.sizeOnTime = Math.random()
 
         if (
             this.x > this.screen.width + this.radius ||
@@ -33,8 +33,6 @@ export default class Ball {
         }
 
         this.ctx.save()
-        this.ctx.moveTo(this.squarePositionX, this.squarePositionY)
-        this.ctx.lineTo(this.squarePositionX, this.squarePositionY)
         this.ctx.strokeStyle = this.color
         this.ctx.stroke()
         this.ctx.restore()
@@ -57,13 +55,6 @@ export default class Ball {
         this.ctx.beginPath()
         this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
         this.ctx.fillStyle = this.color          
-        this.ctx.fill()
-        this.ctx.restore()
-
-        this.ctx.save()
-        this.ctx.beginPath()
-        this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
-        this.ctx.fillStyle = this.color        
         this.ctx.fill()
         this.ctx.restore()
     }

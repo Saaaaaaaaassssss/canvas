@@ -40,6 +40,14 @@ export default class Square {
             this.squareOut = true
         }
 
+        if ((this.squareWidth > 10) && (this.squareHeight > 10)) {
+            this.squareWidth -= 3
+            this.squareHeight -= 3
+        } else {
+            this.squareWidth += 2
+            this.squareHeight += 2
+        }
+
         this.ctx.save()
         this.ctx.fillStyle = `hsl(${Math.random() * 360}, 100%, 50%)`
         this.ctx.rect(this.squarePositionX, this.squarePositionY, this.squareWidth, this.squareHeight)

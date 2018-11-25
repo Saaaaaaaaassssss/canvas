@@ -93,10 +93,6 @@ export default class Main {
 
     //DRAWING SQUARES
     updateSquare() {
-        this.ctx.globalCompositionOperation = 'lighter'
-        this.ctx.fillStyle = '#111111'
-        this.ctx.fillRect(0, 0, this.$canvas.width, this.$canvas.height)
-
         for (let i = 0; i < this.squares.length; i++) {
             this.squares[i].drawSquare()
         }
@@ -120,6 +116,7 @@ export default class Main {
     //DRAWING BALLS
     updateBalls() {
         this.ctx.fillStyle = '#111111'
+        this.ctx.globalCompositeOperation = 'lighter'        
         this.ctx.fillRect(0, 0, this.$canvas.width, this.$canvas.height)
 
         for (let i = 0; i < this.balls.length; i++) {
